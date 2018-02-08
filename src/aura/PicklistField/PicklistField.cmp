@@ -1,0 +1,25 @@
+<aura:component access="GLOBAL" 
+				controller="PicklistSObjectController"
+				implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome"
+				>
+
+	<!--Attributes-->
+	<aura:attribute name="sObjectAPIName" type="String" required="true"/>
+	<aura:attribute name="options" type="Option[]"/>
+	<aura:attribute name="selected" type="String"/>
+	<aura:attribute name="field" type="String" required="true"/>
+	<aura:attribute name="recordId" type="String" required="true"/>
+
+	<!--Handler-->
+
+	<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+	<!--Events-->
+	<aura:registerEvent name="updatePicklistEvent" type="c:updatePicklist"/>
+
+	<ui:inputSelect value="{!v.selected}" change="{!c.select}">
+		<aura:iteration items="{!v.options}" var="item" indexVar="i">
+			<ui:inputSelectOption text="{!item.value}" label="{!item.label}" value="{!v.selected == item.value}"/>
+		</aura:iteration>
+	</ui:inputSelect>
+</aura:component>
